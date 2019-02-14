@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+	<head></head>
+	<body>
+		<custom-element as-template="custom-p">
+			<style>
+				:host {
+					box-shadow: 0 0 0 .5em #d2d2d2;
+					display: block;
+				}
+
+				p {
+					color: white;
+					background-color: #666;
+					padding: .25em;
+				}
+			</style>
+			<p as-slot="text">...</p>
+		</custom-element>
+
+		<custom-p as-slot-text="Hello, World!"></custom-p>
+	</body>
+</html>

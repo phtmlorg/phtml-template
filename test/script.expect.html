@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+	<head><script src="https://unpkg.com/@phtml/template/browser"></script><script>!function d(){/c/.test(document.readyState)&&document.body?document.removeEventListener("readystatechange",d)|asTemplate("custom-element"):document.addEventListener("readystatechange",d)}()</script></head>
+	<body>
+		<custom-element name="custom-p"><template>
+			<style>
+				:host {
+					box-shadow: 0 0 0 .5em #d2d2d2;
+					display: block;
+				}
+
+				p {
+					color: white;
+					background-color: #666;
+					padding: .25em;
+				}
+			</style>
+			<p><slot name="text">...</slot></p>
+		</template></custom-element>
+
+		<custom-p><slot slot="text">Hello, World!</slot></custom-p>
+	</body>
+</html>

@@ -4,8 +4,9 @@
 [![Build Status][cli-img]][cli-url]
 [![Support Chat][git-img]][git-url]
 
-[pHTML Template] lets you create [templates and slots] that can be used to
-define [Custom Elements] in HTML.
+[pHTML Template] helps you write Custom Elements templates that create
+[Custom Elements]! Custom Element templates make it easy to create and reuse
+markup structures on the web.
 
 ```html
 <custom-element as-template="custom-p">
@@ -15,10 +16,11 @@ define [Custom Elements] in HTML.
       display: block;
     }
   </style>
-  <p as-slot="text">...</p>
+  <p as-slot="text">This is fallback content.</p>
 </custom-element>
 
-<custom-p as-slot-text="Hello, World!"></custom-p>
+<custom-p as-slot-text="We can reuse this."></custom-p>
+<custom-p as-slot-text="We can reuse this over and over."></custom-p>
 
 <!-- becomes -->
 
@@ -30,11 +32,12 @@ define [Custom Elements] in HTML.
         display: block;
       }
     </style>
-    <p><slot name="text">...</slot></p>
+    <p><slot name="text">This is fallback content.</slot></p>
   </template>
 </custom-element>
 
-<custom-p><slot slot="text">Hello, World!</slot></custom-p>
+<custom-p><slot slot="text">We can reuse this.</slot></custom-p>
+<custom-p><slot slot="text">We can reuse this over and over.</slot></custom-p>
 ```
 
 ## Usage
@@ -43,21 +46,23 @@ From the command line, transform HTML files that use template and slot
 shorthands:
 
 ```bash
-npx @phtml/template SOURCE.html TRANSFORMED.html
+npx @phtml/template source.html output.html
 ```
 
-That’s it. A 295 byte script will automatically be added to the HTML that works
-in all browsers supporting Custom Elements.
+That’s it! A 295 byte script is automatically inserted into the transformed HTML
+so that `custom-element` elements become real Custom Elements.
+
+[See it for yourself](https://codepen.io/jonneal/pen/PVdMKX?editors=1000).
 
 ## Advanced Usage
 
-Add [pHTML Template] to your project:
+Add pHTML Template to your project:
 
 ```bash
 npm install @phtml/template --save-dev
 ```
 
-Use [pHTML Template] to process your HTML:
+Use pHTML Template to process your HTML:
 
 ```js
 const phtmlTemplate = require('@phtml/template');
@@ -76,9 +81,9 @@ phtml([
 ]).process(YOUR_HTML /*, processOptions */);
 ```
 
-[pHTML Template] runs in all Node environments, with special instructions for:
+pHTML Template runs in all Node environments, with special instructions for:
 
-| [Node](INSTALL.md#node) | [pHTML CLI](INSTALL.md#phtml-cli) | [Webpack](INSTALL.md#webpack) | [Create React App](INSTALL.md#create-react-app) | [Gulp](INSTALL.md#gulp) | [Grunt](INSTALL.md#grunt) |
+| [Node](INSTALL.md#node) | [CLI](INSTALL.md#phtml-cli) | [Webpack](INSTALL.md#webpack) | [CRA](INSTALL.md#create-react-app) | [Gulp](INSTALL.md#gulp) | [Grunt](INSTALL.md#grunt) |
 | --- | --- | --- | --- | --- | --- |
 
 ## Options

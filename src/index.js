@@ -4,16 +4,10 @@ export default new phtml.Plugin('phtml-template', opts => {
 	// there are no options as of yet
 	const script = Object(opts).script;
 
-	return root => {
-		root.walk(node => {
-			const isElement = node.type === 'element';
-
-			if (!isElement) {
-				return;
-			}
-
-			// <x as-template>contents</x> becomes <x><template>contents</template></x>
-			// <x as-template="name">contents</x> becomes <x name="name"><template>contents</template></x>
+	return {
+		Element(node) {
+			// <custom-x as-template>contents</custom-x> becomes <custom-x><template>contents</template></custom-x>
+			// <custom-x as-template="name">contents</custom-x> becomes <custom-x name="name"><template>contents</template></custom-x>
 			const templateName = node.attrs.get('as-template');
 
 			// inner-wrap a template
@@ -32,8 +26,8 @@ export default new phtml.Plugin('phtml-template', opts => {
 				node.attrs.remove('as-template');
 			}
 
-			// <x as-slot>value</x> becomes <x><slot>value</slot></x>
-			// <x as-slot="name">value</x> becomes <x><slot name="name">value</slot></x>
+			// <custom-x as-slot>value</custom-x> becomes <custom-x><slot>value</slot></custom-x>
+			// <custom-x as-slot="name">value</custom-x> becomes <custom-x><slot name="name">value</slot></custom-x>
 			const slotName = node.attrs.get('as-slot');
 
 			// inner-wrap a slot
@@ -49,8 +43,8 @@ export default new phtml.Plugin('phtml-template', opts => {
 				node.attrs.remove('as-slot');
 			}
 
-			// <x as-slot-name>value</x> becomes <x><slot slot="name"></slot>z</x>
-			// <x as-slot-name="value">after</x> becomes <x><slot slot="name">value</slot>after</x>
+			// <custom-x as-slot-name>value</custom-x> becomes <custom-x><slot slot="name"></slot>z</custom-x>
+			// <custom-x as-slot-name="value">after</custom-x> becomes <custom-x><slot slot="name">value</slot>after</custom-x>
 			const slots = [];
 
 			// prepend slots
@@ -74,27 +68,28 @@ export default new phtml.Plugin('phtml-template', opts => {
 			if (slots.length) {
 				node.prepend(...slots);
 			}
-		});
+		},
+		Root(root) {
+			// add the script, preferably to the end of <head>
+			if (script) {
+				const asScriptName = typeof script === 'string' ? script : 'custom-element';
 
-		// add the script, preferably to the end of <head>
-		if (script) {
-			const asScriptName = typeof script === 'string' ? script : 'custom-element';
+				const script1 = new Element({
+					name: 'script',
+					attrs: { src: 'https://unpkg.com/@phtml/template/browser' }
+				});
+				const script2 = new Element({
+					name: 'script',
+					nodes: [
+						`!function d(){/c/.test(document.readyState)&&document.body?document.removeEventListener("readystatechange",d)|asTemplate("${asScriptName}"):document.addEventListener("readystatechange",d)}()`
+					]
+				});
 
-			const script1 = new Element({
-				name: 'script',
-				attrs: { src: 'https://unpkg.com/@phtml/template/browser' }
-			});
-			const script2 = new Element({
-				name: 'script',
-				nodes: [
-					`!function d(){/c/.test(document.readyState)&&document.body?document.removeEventListener("readystatechange",d)|asTemplate("${asScriptName}"):document.addEventListener("readystatechange",d)}()`
-				]
-			});
+				const html = root.nodes.find(child => child.type === 'element' && child.name === 'html') || root;
+				const head = html.nodes.find(child => child.type === 'element' && child.name === 'head') || html;
 
-			const html = root.nodes.find(child => child.type === 'element' && child.name === 'html') || root;
-			const head = html.nodes.find(child => child.type === 'element' && child.name === 'head') || html;
-
-			head.append(script1, script2);
+				head.append(script1, script2);
+			}
 		}
 	};
 });

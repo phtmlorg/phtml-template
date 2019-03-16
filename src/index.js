@@ -5,7 +5,7 @@ export default new phtml.Plugin('phtml-template', opts => {
 	const script = Object(opts).script;
 
 	return {
-		Element(node) {
+		afterElement (node, result) {
 			// <custom-x as-template>contents</custom-x> becomes <custom-x><template>contents</template></custom-x>
 			// <custom-x as-template="name">contents</custom-x> becomes <custom-x name="name"><template>contents</template></custom-x>
 			const templateName = node.attrs.get('as-template');
@@ -14,7 +14,8 @@ export default new phtml.Plugin('phtml-template', opts => {
 			if (templateName !== false) {
 				const template = new Element({
 					name: 'template',
-					nodes: node.nodes
+					nodes: node.nodes,
+					result
 				});
 
 				if (templateName && !node.attrs.contains('name')) {
@@ -35,7 +36,8 @@ export default new phtml.Plugin('phtml-template', opts => {
 				const slot = new Element({
 					name: 'slot',
 					attrs: slotName ? { name: slotName } : {},
-					nodes: node.nodes
+					nodes: node.nodes,
+					result
 				});
 
 				node.prepend(slot);
@@ -56,7 +58,8 @@ export default new phtml.Plugin('phtml-template', opts => {
 					const slot = new Element({
 						name: 'slot',
 						attrs: { slot: name },
-						nodes: attr.value ? [ attr.value ] : []
+						nodes: attr.value ? [ attr.value ] : [],
+						result
 					});
 
 					slots.push(slot);
@@ -69,20 +72,22 @@ export default new phtml.Plugin('phtml-template', opts => {
 				node.prepend(...slots);
 			}
 		},
-		Root(root) {
+		afterRoot (root, result) {
 			// add the script, preferably to the end of <head>
 			if (script) {
 				const asScriptName = typeof script === 'string' ? script : 'custom-element';
 
 				const script1 = new Element({
 					name: 'script',
-					attrs: { src: 'https://unpkg.com/@phtml/template/browser' }
+					attrs: { src: 'https://unpkg.com/@phtml/template/browser' },
+					result
 				});
 				const script2 = new Element({
 					name: 'script',
 					nodes: [
 						`!function d(){/c/.test(document.readyState)&&document.body?document.removeEventListener("readystatechange",d)|asTemplate("${asScriptName}"):document.addEventListener("readystatechange",d)}()`
-					]
+					],
+					result
 				});
 
 				const html = root.nodes.find(child => child.type === 'element' && child.name === 'html') || root;

@@ -1,0 +1,29 @@
+<header is:template="heading">
+	<h1 is:slot>Page Heading</h1>
+	<hr />
+	<is:slot name="subheading"></is:slot>
+</header>
+
+<!-- Example 1 -->
+<as:template name="heading">
+	Goodbye Mars
+	<p as:slot="subheading">We really painted the town red...</p>
+</as:template>
+
+<!-- Example 2 -->
+<as:template name="heading"></as:template>
+
+<!-- Example 3 -->
+<is:template name="replace-1"><is:slot>Replaceable Content</is:slot></is:template>
+
+<as:template name="replace-1">Replaced Content</as:template>
+
+<!-- Example 4 -->
+<is:template name="replace-2"><p is:slot>Replaceable Content</p></is:template>
+
+<as:template name="replace-2"><span class="inner-span" as:slot>Replaced Content</span></as:template>
+
+<!-- Example 4 -->
+<is:template name="replace-3"><p is:slot>Replaceable Content</p></is:template>
+
+<span class="inner-span" as:template="replace-3">Replaced Content</span>

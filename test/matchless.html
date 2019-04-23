@@ -1,0 +1,20 @@
+<is:template name="page-a">
+	<!doctype html>
+	<html>
+		<head>
+			<title><is:slot name="title">Page</is:slot> — Github</title>
+		</head>
+		<body>
+			<main is:slot>
+				main content
+			</main>
+			<footer is:slot="footer">
+				footer content
+			</footer>
+		</body>
+	</html>
+</is:template>
+
+<as:template name="page-b">
+	<p as:slot="footer">replaced footer content</p>
+</as:template>

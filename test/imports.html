@@ -1,0 +1,17 @@
+<!-- Example 1 -->
+<as:template name="heading">
+	Goodbye Mars
+	<p as:slot="subheading">We really painted the town red...</p>
+</as:template>
+
+<!-- Example 2 -->
+<as:template name="heading"></as:template>
+
+<!-- Example 3 -->
+<as:template name="replace-1">Replaced Content</as:template>
+
+<!-- Example 4 -->
+<as:template name="replace-2"><span class="inner-span" as:slot>Replaced Content</span></as:template>
+
+<!-- Example 4 -->
+<span class="inner-span" as:template="replace-3">Replaced Content</span>

@@ -47,7 +47,7 @@ export default function transformTemplates (name, result) {
 		);
 	}
 
-	return Promise.resolve();
+	return null;
 }
 
 const nameRegExp = /^name$/;

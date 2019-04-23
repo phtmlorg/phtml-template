@@ -1,6 +1,6 @@
 {
   "name": "@phtml/template",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Create and reuse compiled templates in HTML",
   "author": "Jonathan Neal <jonathantneal@hotmail.com>",
   "license": "CC0-1.0",
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.4.3",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",

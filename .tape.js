@@ -11,5 +11,17 @@ module.exports = {
 	},
 	'readme': {
 		message: 'supports readme examples'
+	},
+	'imports': {
+		message: 'supports imports',
+		options: {
+			importFrom: [
+				'./test/readme.html',
+				'./test/readme.json',
+				{
+					html: '<is:template name="replace-3"><div is:slot>Replaceable Content</div></is:template>'
+				}
+			]
+		}
 	}
 };

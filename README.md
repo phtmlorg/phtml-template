@@ -149,7 +149,7 @@ phtmlTemplate({
     {
       'phtml-templates': [
         {
-          path: 'path/to/file.html'
+          from: 'path/to/file.html'
         },
         {
           html: '<header is:template="heading">\n  <h1 is:slot>Page Heading</h1>\n  <hr />\n  <is:slot name="subheading"></is:slot>\n</header>'

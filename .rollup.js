@@ -8,6 +8,9 @@ export default {
 	],
 	plugins: [
 		babel({
+			plugins: [
+				'@babel/syntax-dynamic-import'
+			],
 			presets: [
 				['@babel/env', {
 					corejs: 3,

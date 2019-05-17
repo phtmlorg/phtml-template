@@ -1,4 +1,3 @@
-import importSetterTemplate from './importSetterTemplate';
 import { setterMap } from './maps';
 import fs from 'fs';
 import path from 'path';

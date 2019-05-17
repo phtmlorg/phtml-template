@@ -1,5 +1,9 @@
 # Changes to pHTML Template
 
+### 5.1.0 (May 16, 2019)
+
+- Updated: `phtml` to 4.1.0 (minor)
+
 ### 5.0.0 (May 6, 2019)
 
 - Updated: `phtml` to 4.0.0 (major)

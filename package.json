@@ -1,6 +1,6 @@
 {
   "name": "@phtml/template",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "description": "Create and reuse compiled templates in HTML",
   "author": "Jonathan Neal <jonathantneal@hotmail.com>",
   "license": "CC0-1.0",
@@ -20,14 +20,14 @@
     "prepublishOnly": "npm test",
     "pretest:tape": "npm run build",
     "test": "npm run test:js && npm run test:tape",
-    "test:js": "eslint src/*.js --cache --ignore-path .gitignore --quiet",
+    "test:js": "eslint src/{*,**/*}.js --cache --ignore-path .gitignore --quiet",
     "test:tape": "phtml-tape"
   },
   "engines": {
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "phtml": "^4.0.0"
+    "phtml": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
@@ -35,25 +35,25 @@
     "@babel/preset-env": "^7.4.4",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
-    "phtml-tape": "^4.0.0",
+    "phtml-tape": "^4.1.0",
     "pre-commit": "^1.2.2",
-    "rollup": "^1.11.3",
+    "rollup": "^1.12.1",
     "rollup-plugin-babel": "^4.3.2"
   },
   "eslintConfig": {
-    "root": true,
     "env": {
       "browser": true,
       "es6": true,
       "node": true
     },
+    "extends": "eslint:recommended",
     "parser": "babel-eslint",
     "parserOptions": {
       "ecmaVersion": 2018,
       "impliedStrict": true,
       "sourceType": "module"
     },
-    "extends": "eslint:recommended"
+    "root": true
   },
   "keywords": [
     "phtml",
